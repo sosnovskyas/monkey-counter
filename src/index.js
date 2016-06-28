@@ -7,8 +7,10 @@ class MonkeyCounter {
       this.count = count;
     } else if (localStorage['profiles']) {
       this.count = parseInt(localStorage['profiles']);
+    } else {
+      this.count = 0;
+      localStorage['profiles'] = 0;
     }
-
 
     localStorage['profiles'] = this.count;
     console.log('count', this.count);

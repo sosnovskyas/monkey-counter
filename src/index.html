@@ -18,6 +18,9 @@
         this.count = count;
       } else if (localStorage['profiles']) {
         this.count = parseInt(localStorage['profiles']);
+      } else {
+        this.count = 0;
+        localStorage['profiles'] = 0;
       }
 
 
