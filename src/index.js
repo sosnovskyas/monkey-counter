@@ -28,8 +28,13 @@ class MonkeyCounter {
     decButton.innerHTML = '-50';
     this.elem.appendChild(decButton);
 
+    const resButton = document.createElement('button');
+    resButton.innerHTML = 'reset';
+    this.elem.appendChild(resButton);
+
     incButton.addEventListener('click', () => this.increment(50));
     decButton.addEventListener('click', () => this.decrement(50));
+    resButton.addEventListener('click', () => this.reset());
 
     this.render();
   }
@@ -46,7 +51,12 @@ class MonkeyCounter {
       localStorage['profiles'] = this.count;
       this.render();
     }
+  }
 
+  reset() {
+    this.count = 0;
+    localStorage['profiles'] = this.count;
+    this.render();
   }
 
   render() {
