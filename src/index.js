@@ -68,7 +68,7 @@ class MonkeyCounter {
 
   _incCustom() {
     const inc = parseInt(prompt('how much', 50));
-    if ( inc.toString() != 'NaN') {
+    if ( !Number.isNaN(inc)) {
       this.increment(inc);
     }
   }
