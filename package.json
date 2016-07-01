@@ -4,7 +4,8 @@
   "description": "counter of profiles",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/webpack-dev-server"
+    "start": "./node_modules/.bin/webpack-dev-server",
+    "build": "NODE_ENV='production' ./node_modules/.bin/webpack -p"
   },
   "repository": {
     "type": "git",
