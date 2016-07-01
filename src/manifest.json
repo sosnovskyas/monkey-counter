@@ -3,26 +3,11 @@
   "name": "monkey-counter",
   "version": "0.0.1",
 
-  "icons": {
-    "128": ""
-  },
-  "content_scripts": [
-    {
-      "matches": [ "*://*/*" ],
-      "js": [ "./dist/index.js" ]
-    }
-  ],
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "permissions": [
-    "http://losttime.su/*"
-  ],
+  "description": "Profiles counter for monkey-moderators",
 
   "browser_action": {
-    "default_title": "LostTime",
-    "default_icon": "",
-    "default_popup": "./src/popup.html"
+    "default_title": "Monkey counter",
+    "default_icon": "./assets/monkey.png",
+    "default_popup": "./popup.html"
   }
-
 }
