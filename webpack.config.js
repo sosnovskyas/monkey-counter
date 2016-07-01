@@ -19,6 +19,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([{ from: './src/index.html', to: '.' }])
+    new CopyWebpackPlugin([
+      { from: './src/index.html', to: '.' },
+      { from: './src/manifest.json', to: '.' }
+    ])
   ]
 };
