@@ -2,12 +2,22 @@
   "manifest_version": 2,
   "name": "monkey-counter",
   "version": "0.0.1",
-
   "description": "Profiles counter for monkey-moderators",
-
   "browser_action": {
     "default_title": "Monkey counter",
     "default_icon": "./assets/monkey.png",
     "default_popup": "./popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.yourtravelmates.com/people/",
+        "https://www.triptogether.com/travellers/",
+        "https://www.dating.com/people/"
+      ],
+      "js": [
+        "./page.js"
+      ]
+    }
+  ]
 }
