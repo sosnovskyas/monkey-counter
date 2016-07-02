@@ -4,13 +4,14 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
+  entry: {
+    index: './src/index.js',
+    page: './src/page.js'
+  },
   watch: true,
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: '[name].js',
     publicPath: '/'
   },
   module: {
