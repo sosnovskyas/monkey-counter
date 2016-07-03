@@ -1,4 +1,6 @@
 'use strict';
+import price from './../../price'
+
 function _findSuspend() {
   const alarmElems = document.querySelectorAll('.admin-panel .alarm');
 
@@ -10,6 +12,17 @@ function _findSuspend() {
 }
 
 function _onApprove() {
+  const photoEmpty = '/i/account/fake-avatar-big.png?2';
+  const photo = document.querySelector('thumbnail photo');
+
+  let result = {
+    id: '',
+    hasPhoto: false
+  };
+
+  if (photo.src !== photoEmpty) {
+    result.hasPhoto = true;
+  }
   console.log(`approve`)
 }
 
