@@ -58,4 +58,8 @@ export default class profile_dating_com {
     this.profile.price = this.pricer.calculate(this.profile);
     console.log(`approve ${JSON.stringify(this.profile)}`);
   }
+
+  _sendData(){
+    chrome.runtime.sendMessage(this.profile);
+  }
 }
