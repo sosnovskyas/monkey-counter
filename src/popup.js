@@ -3,5 +3,6 @@
 import PopupLog from "./components/popupLog";
 
 new PopupLog({
-  elem: document.querySelector('.log')
+  log: document.querySelector('.log'),
+  counter: document.querySelector('.counter')
 });

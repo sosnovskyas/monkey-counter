@@ -12,7 +12,6 @@ export default class Db {
   }
 
   select(count = 10, callback) {
-    let res;
     this.db.transaction(tx => {
       const request = `SELECT * FROM profiles ORDER BY timestamp DESC LIMIT ${count}`;
       const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, timestamp REAL, project  TEXT, uid  TEXT, result  TEXT, price REAL)';
@@ -28,6 +27,30 @@ export default class Db {
         (tx, error) => {
           tx.executeSql(requestGenerate, [], null, null);
         }
+      )
+    });
+  }
+
+  report(callback) {
+    this.db.transaction(tx => {
+      // const request = `SELECT * FROM profiles WHERE timestamp >= CURDATE()`;
+      const request = `SELECT * FROM profiles`;
+      tx.executeSql(request, [],
+
+        // successful
+        (tx, result)=> {
+          let res = parseFloat(0);
+          for (let i = 0; i < result.rows.length; i++) {
+            if (!Number.isNaN(parseFloat(result.rows[i].price))) {
+              // float fix
+              res = (10000 * res + 10000 * parseFloat(result.rows[i].price)) / 10000;
+            }
+          }
+          callback(res);
+        },
+
+        // err
+        null
       )
     });
   }

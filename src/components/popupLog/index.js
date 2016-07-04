@@ -3,8 +3,9 @@ import Db from "./../db";
 import template from './popupLog.jade'
 
 export default class PopupLog {
-  constructor({elem}) {
+  constructor({log, counter}) {
     const monkey = new Db();
+    counter.innerHTML = 'qwe';
 
     monkey.select(10, result => {
       let rows = [];
@@ -19,10 +20,14 @@ export default class PopupLog {
         })
       }
 
-      elem.innerHTML = template({
+      log.innerHTML = template({
         rows: rows
       });
+    });
 
+    monkey.report(result => {
+      counter.innerText = result;
     })
+
   }
 }
