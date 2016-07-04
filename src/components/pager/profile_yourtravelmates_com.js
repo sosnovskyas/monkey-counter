@@ -6,7 +6,7 @@ export default class profile_yourtravelmates_com {
     this.pricer = new Pricer();
     this.buttons = {};
     this.profile = {
-      project: 'DC',
+      project: 'YTM',
       uid: window.location.hash.slice(1),
       result: null,
       price: 0
