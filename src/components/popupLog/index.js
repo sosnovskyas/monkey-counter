@@ -5,7 +5,6 @@ import template from './popupLog.jade'
 export default class PopupLog {
   constructor({log, counter}) {
     const monkey = new Db();
-    counter.innerHTML = 'qwe';
 
     monkey.select(10, result => {
       let rows = [];
@@ -25,6 +24,7 @@ export default class PopupLog {
       });
     });
 
+    counter.innerHTML = 'calculating...';
     monkey.report(result => {
       counter.innerText = result;
     })
