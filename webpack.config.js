@@ -6,9 +6,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/index.js',
+    popup: './src/popup.js',
     page: './src/page.js'
   },
   watch: true,
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',

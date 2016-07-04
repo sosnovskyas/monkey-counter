@@ -8,6 +8,15 @@
     "default_icon": "./assets/monkey.png",
     "default_popup": "./popup.html"
   },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "./index.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
