@@ -1,24 +1,25 @@
 'use strict';
 
 export default class Db {
-  constructor(name = 'monkey') {
-    this.db = this._connect(name)
+  constructor({name = 'monkey'}) {
+    this.db = this._connect(name);
   }
 
   _connect(name) {
     return openDatabase(name, "1.0", "Monkey DB", 20000);
   }
 
-  select() {
+  select(count = 10, callback) {
+    let res;
     this.db.transaction(tx => {
-      const request = 'SELECT COUNT(*) FROM profiles';
-      const requestGenerate = 'CREATE TABLE ToDo (id REAL UNIQUE, label TEXT, timestamp REAL)';
+      const request = `SELECT * FROM profiles ORDER BY timestamp DESC LIMIT ${count}`;
+      const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, label TEXT, timestamp REAL)';
 
       tx.executeSql(request, [],
 
         // successful
         (tx, result)=> {
-          return 'ok';
+          callback(result.rows);
         },
 
         // error
@@ -30,10 +31,17 @@ export default class Db {
   }
 
   insert(profile) {
-    const request = "INSERT INTO ToDo (label, timestamp) values(?, ?)";
+    const request = "INSERT INTO profiles (label, timestamp) values(?, ?)";
 
-    db.transaction(tx => {
+    this.db.transaction(tx => {
       tx.executeSql(request, ["profile ID", new Date().getTime()], null, null);
+    });
+  }
+
+  reset() {
+    const request = "DROP TABLE profiles ";
+    this.db.transaction(tx => {
+      tx.executeSql(request, [], null, null);
     });
   }
 }
