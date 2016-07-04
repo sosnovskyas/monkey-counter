@@ -52,18 +52,18 @@ export default class PopupLog {
 
     counter.innerHTML = 'calculating...';
     monkey.report(result => {
-      counter.innerText = `processed ${count + 1} profiles\n earn ${result}$`;
+      counter.innerText = `processed ${count} profiles\n earn ${result}$`;
     })
   }
 
   _showShift(shift) {
     localStorage['shift'] = localStorage['shift'] || 1;
-    shift.querySelector('.shift__counter').innerText = localStorage['shift'];
+    // shift.querySelector('.shift__counter').innerText = localStorage['shift'];
     shift.querySelector('.shift__up').addEventListener('click', () => this._shiftUp(shift))
   }
 
   _shiftUp(shift) {
     localStorage['shift'] = +localStorage['shift'] + 1;
-    shift.querySelector('.shift__counter').innerText = localStorage['shift'];
+    // shift.querySelector('.shift__counter').innerText = localStorage['shift'];
   }
 }
