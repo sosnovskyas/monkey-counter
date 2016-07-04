@@ -1,10 +1,10 @@
 'use strict';
 import Db from "./../db";
 import template from "./popupLog.jade";
+const monkey = new Db();
 
 export default class PopupLog {
   constructor({log, counter}) {
-    const monkey = new Db();
     let count = 0;
 
     monkey.select(10, result => {
@@ -23,6 +23,7 @@ export default class PopupLog {
       log.innerHTML = template({
         rows: rows
       });
+      log.addEventListener('click', event => this._onDelete(event))
     });
 
     monkey.select(-1, result => {
@@ -37,5 +38,14 @@ export default class PopupLog {
       counter.innerText = `processed ${count} profiles\n earn ${result}$`;
     })
 
+  }
+
+  _onDelete(event) {
+    if (event.target.closest('button')) {
+      monkey.delete(event.target.dataset.timestamp, ()=> {
+        const row = event.target.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      });
+    }
   }
 }

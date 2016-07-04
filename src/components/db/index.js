@@ -73,12 +73,15 @@ export default class Db {
     });
   }
 
-  deleteRow(timestamp) {
-    const request = `DELETE FROM table_name WHERE timestamp = ${timestamp}`;
+  delete(timestamp, callback) {
+    const request = `DELETE FROM profiles WHERE timestamp = ${timestamp}`;
 
     this.db.transaction(tx => {
       tx.executeSql(request, [],
-        ()=>console.log('delete done'),
+        ()=> {
+          console.log('delete done');
+          callback();
+        },
         (tx, err)=> console.warn(err));
     });
   }

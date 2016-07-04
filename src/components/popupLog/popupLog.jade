@@ -16,3 +16,5 @@ table
         td= row.uid
         td= row.result
         td= row.price
+        td
+          button(data-timestamp=new Date(row.date).getTime()) x
