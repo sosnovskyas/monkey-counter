@@ -44,7 +44,7 @@ export default class Db {
             console.log(result.rows[i]);
             if (!Number.isNaN(parseFloat(result.rows[i].price))) {
               // float fix
-              res = (10000 * res + 10000 * parseFloat(result.rows[i].price)) / 10000;
+              res = (1000 * res + 1000 * parseFloat(result.rows[i].price)) / 1000;
             }
           }
           callback(res);
