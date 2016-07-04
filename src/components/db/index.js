@@ -47,11 +47,12 @@ export default class Db {
               res = (1000 * res + 1000 * parseFloat(result.rows[i].price)) / 1000;
             }
           }
+          console.log('report done');
           callback(res);
         },
 
         // err
-        null
+        (tx, err) => console.log(err)
       )
     });
   }
@@ -67,13 +68,13 @@ export default class Db {
           profile.uid,
           profile.result,
           profile.price
-        ], null,
+        ], ()=>console.log('insert done'),
         (tx, err)=> console.warn(err));
     });
   }
 
   reset() {
-    const request = "DROP TABLE profiles ";
+    const request = "DROP TABLE profiles";
     this.db.transaction(tx => {
       tx.executeSql(request, [], null, null);
     });

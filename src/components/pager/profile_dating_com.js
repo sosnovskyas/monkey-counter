@@ -13,27 +13,27 @@ export default class profile_dating_com {
     };
 
     const buttons = document.querySelectorAll('.control.button.toggle');
-    buttons.forEach(item => {
-      switch (item.childNodes[5].innerText) {
+    for(let i = 0; i < buttons.length; i++) {
+      switch (buttons[i].childNodes[5].innerText) {
         case 'Suspend':
         {
-          item.addEventListener('mouseover', ()=> this._onSuspend());
+          buttons[i].addEventListener('click', ()=> this._onSuspend());
           break;
         }
 
         case 'Scam':
         {
-          this.buttons.scam = item;
+          this.buttons.scam = buttons[i];
           break;
         }
 
         case 'Approve':
         {
-          item.addEventListener('mouseover', ()=> this._onApprove());
+          buttons[i].addEventListener('click', ()=> this._onApprove());
           break;
         }
       }
-    });
+    }
   }
 
   _onSuspend() {
@@ -44,6 +44,7 @@ export default class profile_dating_com {
       return;
     }
 
+    console.log('suspend');
     this.profile.price = this.pricer.calculate(this.profile);
     this._sendData();
   }
@@ -57,6 +58,7 @@ export default class profile_dating_com {
       this.profile.result = 'with-OUT-photo';
     }
 
+    console.log('approve');
     this.profile.price = this.pricer.calculate(this.profile);
     this._sendData();
   }
