@@ -1,8 +1,10 @@
 'use strict';
 
 export default class Db {
-  constructor({name = 'monkey'}) {
+  constructor(name = 'monkey') {
     this.db = this._connect(name);
+
+    this.select(1, ()=> null)
   }
 
   _connect(name) {
@@ -13,7 +15,7 @@ export default class Db {
     let res;
     this.db.transaction(tx => {
       const request = `SELECT * FROM profiles ORDER BY timestamp DESC LIMIT ${count}`;
-      const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, label TEXT, timestamp REAL)';
+      const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, timestamp REAL, project  TEXT, uid  TEXT, result  TEXT, price REAL)';
 
       tx.executeSql(request, [],
 
@@ -30,17 +32,19 @@ export default class Db {
     });
   }
 
-  insert(profile) {
+  insert(obj) {
     const request = "INSERT INTO profiles (timestamp , project, uid, result, price) values(?, ?, ?, ?, ?)";
+    const profile = JSON.parse(obj);
 
     this.db.transaction(tx => {
       tx.executeSql(request, [
-        new Date().getTime(),
-        profile.project,
-        profile.uid,
-        profile.result,
-        profile.price
-      ], null, null);
+          new Date().getTime(),
+          profile.project,
+          profile.uid,
+          profile.result,
+          profile.price
+        ], null,
+        (tx, err)=> console.warn(err));
     });
   }
 

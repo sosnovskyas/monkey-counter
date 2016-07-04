@@ -2,11 +2,11 @@
 
 import Db from "./components/db";
 
-const monkey = new Db({name: 'monkey'});
+const monkey = new Db();
+
+// monkey.reset();
 
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
-    console.log('request', request)
+    monkey.insert(request);
   });
-
-console.log('index');

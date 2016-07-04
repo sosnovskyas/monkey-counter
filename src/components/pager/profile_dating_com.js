@@ -1,6 +1,5 @@
 'use strict';
-import Pricer from "../pricer/";
-
+import Pricer from "./../pricer/";
 
 export default class profile_dating_com {
   constructor() {
@@ -47,8 +46,6 @@ export default class profile_dating_com {
 
     this.profile.price = this.pricer.calculate(this.profile);
     this._sendData();
-
-    console.log(`suspend ${JSON.stringify(this.profile)}`);
   }
 
   _onApprove() {
@@ -59,10 +56,9 @@ export default class profile_dating_com {
     } else {
       this.profile.result = 'with-OUT-photo';
     }
-    
+
     this.profile.price = this.pricer.calculate(this.profile);
     this._sendData();
-    console.log(`approve ${JSON.stringify(this.profile)}`);
   }
 
   _sendData() {

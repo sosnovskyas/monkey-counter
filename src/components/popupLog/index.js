@@ -4,12 +4,12 @@ import template from './popupLog.jade'
 
 export default class PopupLog {
   constructor({elem}) {
-    const monkey = new Db({name: 'monkey'});
+    const monkey = new Db();
 
     monkey.select(10, result => {
       let rows = [];
       for(let i = 0; i < result.length; i++){
-        console.log(result[i]);
+        // console.log(result[i]);
         rows.push({
           date: new Date(result[i].timestamp),
           project: result[i].project,
