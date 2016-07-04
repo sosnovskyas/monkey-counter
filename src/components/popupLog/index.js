@@ -59,10 +59,11 @@ export default class PopupLog {
   _showShift(shift) {
     localStorage['shift'] = localStorage['shift'] || 1;
     shift.querySelector('.shift__counter').innerText = localStorage['shift'];
-    shift.querySelector('.shift__up').addEventListener('click', () => this._shiftUp())
+    shift.querySelector('.shift__up').addEventListener('click', () => this._shiftUp(shift))
   }
 
-  _shiftUp() {
+  _shiftUp(shift) {
     localStorage['shift'] = +localStorage['shift'] + 1;
+    shift.querySelector('.shift__counter').innerText = localStorage['shift'];
   }
 }

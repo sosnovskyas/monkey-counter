@@ -13,8 +13,8 @@ export default class Db {
 
   select(count = 10, callback) {
     this.db.transaction(tx => {
-      const request = `SELECT * FROM profiles ORDER BY timestamp DESC LIMIT ${count}`;
-      const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, timestamp REAL, project  TEXT, uid  TEXT, result  TEXT, price REAL)';
+      const request = `SELECT * FROM profiles WHERE shift >= ${localStorage['shift']} ORDER BY timestamp DESC LIMIT ${count} `;
+      const requestGenerate = 'CREATE TABLE profiles (id REAL UNIQUE, timestamp REAL, shift TEXT, project  TEXT, uid  TEXT, result  TEXT, price REAL)';
 
       tx.executeSql(request, [],
 
@@ -33,8 +33,7 @@ export default class Db {
 
   report(callback) {
     this.db.transaction(tx => {
-      const startOfDay = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) / 1000;
-      const request = `SELECT * FROM profiles WHERE timestamp >= ${startOfDay}`;
+      const request = `SELECT * FROM profiles WHERE shift >= ${localStorage['shift']}`;
       tx.executeSql(request, [],
 
         // successful
@@ -57,12 +56,13 @@ export default class Db {
   }
 
   insert(obj) {
-    const request = "INSERT INTO profiles (timestamp , project, uid, result, price) values(?, ?, ?, ?, ?)";
+    const request = "INSERT INTO profiles (timestamp, shift, project, uid, result, price) values(?, ?, ?, ?, ?, ?)";
     const profile = JSON.parse(obj);
 
     this.db.transaction(tx => {
       tx.executeSql(request, [
           new Date().getTime(),
+          localStorage['shift'],
           profile.project,
           profile.uid,
           profile.result,
