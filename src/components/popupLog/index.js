@@ -5,8 +5,22 @@ const monkey = new Db();
 
 export default class PopupLog {
   constructor({log, counter}) {
-    let count = 0;
+    this._showLog(log);
+    this._showCounter(counter);
 
+
+  }
+
+  _onDelete(event) {
+    if (event.target.closest('button')) {
+      monkey.delete(event.target.dataset.timestamp, ()=> {
+        const row = event.target.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      });
+    }
+  }
+
+  _showLog(log) {
     monkey.select(10, result => {
       let rows = [];
 
@@ -25,6 +39,10 @@ export default class PopupLog {
       });
       log.addEventListener('click', event => this._onDelete(event))
     });
+  }
+
+  _showCounter(counter) {
+    let count = 0;
 
     monkey.select(-1, result => {
       for (let i = 0; i < result.length; i++) {
@@ -32,20 +50,9 @@ export default class PopupLog {
       }
     });
 
-
     counter.innerHTML = 'calculating...';
     monkey.report(result => {
-      counter.innerText = `processed ${count} profiles\n earn ${result}$`;
+      counter.innerText = `processed ${count + 1} profiles\n earn ${result}$`;
     })
-
-  }
-
-  _onDelete(event) {
-    if (event.target.closest('button')) {
-      monkey.delete(event.target.dataset.timestamp, ()=> {
-        const row = event.target.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-      });
-    }
   }
 }
