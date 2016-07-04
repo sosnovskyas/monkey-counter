@@ -18,7 +18,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.js?$/, exclude: /node_modules/, loaders: ['babel']}
+      {test: /\.js?$/, exclude: /node_modules/, loaders: ['babel']},
+      {test: /\.jade/, exclude: /node_modules/, loader: 'jade-loader'}
     ]
   },
   plugins: [
