@@ -7,10 +7,9 @@ export default class profile_dating_com {
     this.pricer = new Pricer();
     this.buttons = {};
     this.profile = {
-      id: window.location.hash.slice(1),
-      scam: false,
-      suspend: false,
-      date: null,
+      project: 'DC',
+      uid: window.location.hash.slice(1),
+      result: null,
       price: 0
     };
 
@@ -19,22 +18,19 @@ export default class profile_dating_com {
       switch (item.childNodes[5].innerText) {
         case 'Suspend':
         {
-          this.buttons.suspend = item;
-          this.buttons.suspend.addEventListener('mouseover', ()=> this._onSuspend());
+          item.addEventListener('mouseover', ()=> this._onSuspend());
           break;
         }
 
         case 'Scam':
         {
           this.buttons.scam = item;
-
           break;
         }
 
         case 'Approve':
         {
-          this.buttons.approve = item;
-          this.buttons.approve.addEventListener('mouseover', ()=> this._onApprove());
+          item.addEventListener('mouseover', ()=> this._onApprove());
           break;
         }
       }
@@ -43,23 +39,37 @@ export default class profile_dating_com {
 
   _onSuspend() {
     this.profile.date = Date.now();
-    this.profile.scam = !!this.buttons.scam.classList.contains('pressed');
-    this.profile.suspend = true;
-    if (this.profile.scam) alert('Упс, это как то странно, суспендить скамера');
+    this.profile.result = 'suspend';
+    if (!!this.buttons.scam.classList.contains('pressed')) {
+      alert('Упс, это как то странно, суспендить скамера');
+      return;
+    }
+
     this.profile.price = this.pricer.calculate(this.profile);
+    this._sendData();
+
     console.log(`suspend ${JSON.stringify(this.profile)}`);
   }
 
   _onApprove() {
-
-    this.profile.date = Date.now();
-    this.profile.scam = !!this.buttons.scam.classList.contains('pressed');
-    // if (this.buttons.approve.classList.contains('pressed')) console.log('')
+    if (this.buttons.scam.classList.contains('pressed')) {
+      this.profile.result = 'scam';
+    } else if (this._checkAvatar()) {
+      this.profile.result = 'with-photo';
+    } else {
+      this.profile.result = 'with-OUT-photo';
+    }
+    
     this.profile.price = this.pricer.calculate(this.profile);
+    this._sendData();
     console.log(`approve ${JSON.stringify(this.profile)}`);
   }
 
-  _sendData(){
-    chrome.runtime.sendMessage(this.profile);
+  _sendData() {
+    chrome.runtime.sendMessage(JSON.stringify(this.profile));
+  }
+
+  _checkAvatar() {
+    return document.querySelector('.thumbnail-wrapper:not(.loading) img').dataset.url;
   }
 }

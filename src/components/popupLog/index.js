@@ -12,14 +12,17 @@ export default class PopupLog {
         console.log(result[i]);
         rows.push({
           date: new Date(result[i].timestamp),
-          project: result[i].label
+          project: result[i].project,
+          uid: result[i].uid,
+          result: result[i].result,
+          price: result[i].price
         })
       }
-      
+
       elem.innerHTML = template({
         rows: rows
       });
-      
+
     })
   }
 }

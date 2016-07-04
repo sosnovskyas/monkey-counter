@@ -31,10 +31,16 @@ export default class Db {
   }
 
   insert(profile) {
-    const request = "INSERT INTO profiles (label, timestamp) values(?, ?)";
+    const request = "INSERT INTO profiles (timestamp , project, uid, result, price) values(?, ?, ?, ?, ?)";
 
     this.db.transaction(tx => {
-      tx.executeSql(request, ["profile ID", new Date().getTime()], null, null);
+      tx.executeSql(request, [
+        new Date().getTime(),
+        profile.project,
+        profile.uid,
+        profile.result,
+        profile.price
+      ], null, null);
     });
   }
 

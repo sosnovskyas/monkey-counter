@@ -11,14 +11,15 @@ export default class {
   }
 
   calculate(profile) {
-    if (profile.scam) {
-      return this.tarif.scam
-    } else if (profile.suspend) {
-      return this.tarif.suspend
-    } else if (profile.photo) {
-      return this.tarif.withPhoto
-    } else {
-      return this.tarif.withOutPhoto
+    switch (profile.result) {
+      case 'scam':
+        return this.tarif.scam;
+      case 'suspend':
+        return this.tarif.suspend;
+      case 'with-photo':
+        return this.tarif.withPhoto;
+      case 'with-OUT-photo':
+        return this.tarif.withOutPhoto;
     }
   }
 }
