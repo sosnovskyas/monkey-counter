@@ -4,10 +4,10 @@ import template from "./popupLog.jade";
 const monkey = new Db();
 
 export default class PopupLog {
-  constructor({log, counter}) {
+  constructor({log, counter, shift}) {
     this._showLog(log);
     this._showCounter(counter);
-
+    this._showShift(shift);
 
   }
 
@@ -54,5 +54,15 @@ export default class PopupLog {
     monkey.report(result => {
       counter.innerText = `processed ${count + 1} profiles\n earn ${result}$`;
     })
+  }
+
+  _showShift(shift) {
+    localStorage['shift'] = localStorage['shift'] || 1;
+    shift.querySelector('.shift__counter').innerText = localStorage['shift'];
+    shift.querySelector('.shift__up').addEventListener('click', () => this._shiftUp())
+  }
+
+  _shiftUp() {
+    localStorage['shift'] = +localStorage['shift'] + 1;
   }
 }
