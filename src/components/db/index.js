@@ -41,7 +41,6 @@ export default class Db {
         (tx, result)=> {
           let res = parseFloat(0);
           for (let i = 0; i < result.rows.length; i++) {
-            console.log(result.rows[i]);
             if (!Number.isNaN(parseFloat(result.rows[i].price))) {
               // float fix
               res = (1000 * res + 1000 * parseFloat(result.rows[i].price)) / 1000;
