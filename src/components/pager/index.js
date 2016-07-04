@@ -2,12 +2,18 @@
 
 const monkey = '@(^..^)@';
 
-import profile_dating_com from './profile_dating_com'
+import profile_dating_com from "./profile_dating_com";
+import profile_yourtravelmates_com from "./profile_yourtravelmates_com";
 
 export default class MonkeyPager {
   constructor() {
     switch (window.location.host) {
-      case "www.dating.com": new profile_dating_com();
+      case "www.dating.com":
+        new profile_dating_com();
+        break;
+      case "www.yourtravelmates.com":
+        new profile_yourtravelmates_com();
+        break;
     }
     console.log(`monkey is ready to keep track of your page ${monkey}`);
   }
