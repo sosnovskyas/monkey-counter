@@ -7,7 +7,8 @@ module.exports = {
   entry: {
     index: './src/index.js',
     popup: './src/popup.js',
-    page: './src/page.js'
+    page: './src/page.js',
+    options: './src/options.js'
   },
   watch: true,
   devtool: 'source-map',
@@ -26,6 +27,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './src/index.html', to: '.' },
       { from: './src/popup.html', to: '.' },
+      { from: './src/options.html', to: '.' },
       { from: './src/manifest.json', to: '.' },
       { from: './src/assets', to: './assets' }
     ])
