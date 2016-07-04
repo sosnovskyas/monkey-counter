@@ -68,6 +68,6 @@ export default class profile_yourtravelmates_com {
   }
 
   _checkAvatar() {
-    return document.querySelector('.thumbnail-wrapper:not(.loading) img').dataset.url;
+    return (document.querySelector('.touchcarousel-container').childNodes.length > 1);
   }
 }
