@@ -1,0 +1,18 @@
+table
+  caption profiles log
+  thead
+    tr
+      td date/time
+      td project
+      td ID
+      td result
+      td price
+  tbody
+    // each row in [{date: 123,project: 'test', id: 123, result:'approve', price: 0.03}]
+    each row in rows
+      tr
+        td= row.date
+        td= row.project
+        td= row.id
+        td= row.result
+        td= row.price
