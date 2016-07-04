@@ -33,7 +33,7 @@ export default class Db {
 
   report(callback) {
     this.db.transaction(tx => {
-      const startOfDay = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())/ 1000;
+      const startOfDay = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) / 1000;
       const request = `SELECT * FROM profiles WHERE timestamp >= ${startOfDay}`;
       tx.executeSql(request, [],
 
@@ -69,6 +69,16 @@ export default class Db {
           profile.result,
           profile.price
         ], ()=>console.log('insert done'),
+        (tx, err)=> console.warn(err));
+    });
+  }
+
+  deleteRow(timestamp) {
+    const request = `DELETE FROM table_name WHERE timestamp = ${timestamp}`;
+
+    this.db.transaction(tx => {
+      tx.executeSql(request, [],
+        ()=>console.log('delete done'),
         (tx, err)=> console.warn(err));
     });
   }
