@@ -17,7 +17,7 @@ export default class profile_dating_com {
       switch (buttons[i].childNodes[5].innerText) {
         case 'Suspend':
         {
-          buttons[i].addEventListener('mouseover', ()=> this._onSuspend());
+          buttons[i].addEventListener('click', ()=> this._onSuspend());
           break;
         }
 
@@ -29,7 +29,7 @@ export default class profile_dating_com {
 
         case 'Approve':
         {
-          buttons[i].addEventListener('mouseover', ()=> this._onApprove());
+          buttons[i].addEventListener('click', ()=> this._onApprove());
           break;
         }
       }
