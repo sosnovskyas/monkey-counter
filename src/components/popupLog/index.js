@@ -52,7 +52,7 @@ export default class PopupLog {
 
     counter.innerHTML = 'calculating...';
     monkey.report(result => {
-      counter.innerText = `processed ${count} profiles\n earn ${result}$`;
+      counter.innerText = `processed ${count} profiles\n earn ${(+result).toFixed(2)}$`;
     })
   }
 
