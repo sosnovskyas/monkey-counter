@@ -7,7 +7,7 @@ export default class profile_triptogether_com {
     this.buttons = {};
     this.profile = {
       project: 'TT',
-      uid: window.location.hash.slice(1),
+      uid: window.location.hash.slice(1).split("&")[0],
       result: null,
       price: 0
     };
